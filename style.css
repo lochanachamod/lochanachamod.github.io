@@ -773,3 +773,133 @@ body {
     0% { transform: translateX(0); }
     100% { transform: translateX(-1000px); } /* Moves left by width of original 4 cards */
 }
+
+/* =========================================
+   MOBILE REPAIR KIT 
+   ========================================= */
+
+@media (max-width: 768px) {
+    
+    /* 1. GENERAL FIXES */
+    body {
+        overflow-x: hidden; /* Stops the annoying side-scrolling */
+    }
+
+    section {
+        overflow-x: hidden; /* Double protection */
+    }
+
+    /* 2. NAVIGATION BAR */
+    .navbar {
+        padding: 15px 20px; /* Smaller padding */
+        height: 70px;
+    }
+    
+    .nav-links {
+        width: 70%; /* Wider menu for easier tapping */
+        background-color: rgba(17, 34, 64, 0.95); /* Solid background */
+    }
+
+    /* 3. HERO SECTION (Name & Photo) */
+    .hero {
+        flex-direction: column-reverse; /* Image on TOP, Name on BOTTOM */
+        justify-content: center;
+        text-align: center;
+        padding: 120px 20px 50px 20px; /* Less side padding */
+        height: auto; /* Allow height to grow naturally */
+        min-height: 100vh;
+    }
+
+    .hero-content {
+        align-items: center; /* Center everything */
+        margin-top: 30px;
+        width: 100%;
+    }
+
+    .hero-img {
+        margin-bottom: 20px;
+    }
+
+    .img-container {
+        width: 250px; /* Smaller image */
+        height: 250px;
+    }
+
+    /* Fix Text Sizes */
+    .hi-text {
+        font-size: 1rem;
+    }
+
+    .name-text {
+        font-size: 2.5rem; /* Smaller name (was 4rem) */
+    }
+
+    .role-text {
+        font-size: 1.5rem; /* Smaller role (was 3rem) */
+    }
+
+    .bio-text {
+        font-size: 1rem;
+        max-width: 100%;
+    }
+
+    .hero-buttons {
+        flex-direction: column; /* Stack buttons vertically */
+        gap: 15px;
+        width: 100%;
+    }
+
+    .btn-primary, .btn-secondary {
+        width: 100%; /* Full width buttons */
+        justify-content: center;
+    }
+
+    /* 4. ABOUT & TIMELINE */
+    .about-section {
+        padding: 60px 20px; /* Less padding */
+    }
+
+    .section-title {
+        font-size: 2rem;
+    }
+
+    .about-container {
+        gap: 40px;
+    }
+
+    .timeline {
+        padding-left: 20px; /* Save space */
+    }
+
+    /* 5. PROJECTS GRID */
+    .projects-section {
+        padding: 60px 20px;
+    }
+
+    .projects-grid {
+        grid-template-columns: 1fr; /* Force 1 column */
+    }
+
+    /* 6. CONTACT SECTION */
+    .contact-section {
+        padding: 80px 20px;
+    }
+
+    .contact-title {
+        font-size: 2.5rem;
+    }
+
+    /* 7. CERTIFICATES SLIDER FIX */
+    .cert-section {
+        padding: 40px 0;
+    }
+
+    .slider {
+        width: 100vw; /* Force slider to fit screen width */
+    }
+    
+    .slider::before, 
+    .slider::after {
+        width: 50px; /* Smaller fade effect on sides */
+    }
+}
