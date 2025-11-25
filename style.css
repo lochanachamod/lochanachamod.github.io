@@ -673,3 +673,103 @@ body {
         font-size: 2.5rem;
     }
 }
+/* --- CERTIFICATES SLIDER --- */
+.cert-section {
+    scroll-margin-top: 100px;
+    padding: 50px 0;
+    background: var(--bg-dark);
+    overflow: hidden; /* Hides the scrollbar */
+    text-align: center;
+}
+
+.cert-title {
+    color: var(--text-main);
+    font-size: 1.5rem;
+    margin-bottom: 40px;
+}
+
+.slider {
+    height: 150px;
+    margin: auto;
+    overflow: hidden;
+    position: relative;
+    width: 100%;
+}
+
+.slider::before,
+.slider::after {
+    /* Creates a fade effect on the sides so it looks professional */
+    background: linear-gradient(to right, var(--bg-dark) 0%, rgba(10, 25, 47, 0) 100%);
+    content: "";
+    height: 150px;
+    position: absolute;
+    width: 100px;
+    z-index: 2;
+}
+
+.slider::before {
+    left: 0;
+    top: 0;
+}
+
+.slider::after {
+    right: 0;
+    top: 0;
+    transform: rotateZ(180deg);
+}
+
+.slide-track {
+    animation: scroll 20s linear infinite; /* Speed of scrolling */
+    display: flex;
+    width: calc(250px * 12); /* Width = Card width x Number of Total Slides (including duplicates) */
+}
+
+.slide {
+    height: 150px;
+    width: 250px; /* Card Width */
+    display: flex;
+    align-items: center;
+    padding: 15px;
+}
+
+.cert-card {
+    background: var(--bg-light);
+    width: 100%;
+    padding: 20px;
+    border-radius: 8px;
+    border: 1px solid rgba(100, 255, 218, 0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    transition: 0.3s;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+
+.cert-card:hover {
+    border-color: var(--accent);
+    transform: scale(1.05);
+}
+
+.cert-card i {
+    font-size: 2rem;
+    color: var(--accent);
+    margin-bottom: 10px;
+}
+
+.cert-card h4 {
+    color: var(--text-main);
+    font-size: 0.9rem;
+    margin-bottom: 5px;
+}
+
+.cert-card p {
+    color: var(--text-muted);
+    font-size: 0.8rem;
+}
+
+/* The Animation Keyframes */
+@keyframes scroll {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-1000px); } /* Moves left by width of original 4 cards */
+}
