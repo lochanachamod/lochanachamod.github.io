@@ -903,3 +903,142 @@ body {
         width: 50px; /* Smaller fade effect on sides */
     }
 }
+/* --- 9. EXPERTISE SECTION --- */
+.expertise-section {
+    padding: 100px 100px;
+    background-color: var(--bg-dark);
+}
+
+.expertise-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+}
+
+.expertise-card {
+    background: var(--bg-light);
+    padding: 35px;
+    border-radius: 8px;
+    transition: all 0.4s ease; /* Smoother animation */
+    border: 1px solid rgba(100, 255, 218, 0.05); /* Subtle border */
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Hover Effect: Lift + Neon Glow */
+.expertise-card:hover {
+    transform: translateY(-10px);
+    border-color: var(--accent);
+    box-shadow: 0 10px 30px -10px rgba(100, 255, 218, 0.3);
+}
+
+/* Icon Animation */
+.expertise-card .icon-box {
+    font-size: 3rem;
+    color: var(--accent);
+    margin-bottom: 20px;
+    transition: transform 0.4s ease;
+}
+
+.expertise-card:hover .icon-box {
+    transform: scale(1.1) rotate(5deg); /* Subtle pop and twist */
+}
+
+.expertise-card h3 {
+    color: var(--text-main);
+    font-size: 1.3rem;
+    margin-bottom: 15px;
+}
+
+.expertise-card p {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    line-height: 1.6;
+}
+
+/* --- 10. WORKFLOW SECTION  --- */
+.workflow-section {
+    padding: 100px 100px;
+    background-color: var(--bg-dark); /* Matches full site background */
+    text-align: center;
+}
+
+.section-subtitle {
+    color: var(--text-muted);
+    font-family: var(--font-code);
+    margin-bottom: 60px;
+    margin-top: -50px;
+    font-size: 0.9rem;
+}
+
+.workflow-container {
+    display: flex;
+    justify-content: space-between;
+    gap: 25px;
+    flex-wrap: wrap;
+}
+
+.workflow-step {
+    flex: 1;
+    min-width: 220px;
+    background: var(--bg-light); /* Lighter card to stand out on dark BG */
+    padding: 40px 25px;
+    border-radius: 8px;
+    transition: all 0.4s ease;
+    border: 1px solid rgba(100, 255, 218, 0.05);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Hover Effect: Lift + Glow */
+.workflow-step:hover {
+    transform: translateY(-10px);
+    border-color: var(--accent);
+    box-shadow: 0 10px 30px -10px rgba(100, 255, 218, 0.2);
+}
+
+.step-icon {
+    font-size: 2.5rem;
+    color: var(--accent);
+    margin-bottom: 20px;
+    background: rgba(100, 255, 218, 0.1);
+    width: 70px;
+    height: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%; /* Circle icon background */
+    transition: 0.4s;
+}
+
+.workflow-step:hover .step-icon {
+    background: rgba(100, 255, 218, 0.2);
+    transform: scale(1.1);
+}
+
+.workflow-step h4 {
+    color: var(--text-main);
+    margin-bottom: 10px;
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+
+.workflow-step p {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    line-height: 1.5;
+}
+
+/* MOBILE FIX */
+@media (max-width: 768px) {
+    .expertise-section, .workflow-section {
+        padding: 60px 20px;
+    }
+    
+    .workflow-container {
+        flex-direction: column;
+        gap: 30px;
+    }
+}
