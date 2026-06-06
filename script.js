@@ -170,76 +170,124 @@ if (counters.length > 0) {
 /* 4. Deep Dive Project Modals */
 const projectData = {
     "LOC-AI Assistant": {
-        problem: "Users needed a highly capable local AI companion running efficiently without relying entirely on expensive cloud APIs, ensuring data privacy and fast responses.",
-        architecture: "Built an Electron Desktop App utilizing React and Node.js. Integrated local LLM capabilities via Llama.cpp and ONNX Runtime for CPU/GPU acceleration.",
-        tech: ["Electron", "React", "Node.js", "Llama.cpp", "AI"]
+        problem: "LOC-AI was built to solve a critical problem for modern developers: balancing the immense reasoning power of cloud-based AI with the strict privacy requirements of enterprise coding. The objective was to create a tool with a <strong>God Mode</strong> (online API) and a <strong>Bunker Mode</strong> (offline inference) for sensitive code.",
+        architecture: "<ul><li>Built a production-ready, cross-platform desktop application using <strong>Electron and Node.js</strong>.</li><li>Engineered a custom Extraction Engine utilizing native OCR via <strong>Tesseract.js</strong> and PDF parsing via <strong>pdf-parse</strong>.</li><li>Implemented enterprise-grade security via strict IPC bridging and frontend sandboxing.</li></ul>",
+        tech: ["Electron", "Node.js", "React", "Groq API", "Ollama", "Tesseract.js"]
     },
-    "Ammehula ERP Software": {
-        problem: "A manufacturing enterprise struggled with siloed data across inventory, HR, and production. They needed a high-performance, unified dashboard to prevent stock-outs.",
-        architecture: "Engineered a massive Full-Stack ERP. Frontend built with Next.js & Zustand for complex state management. Backend runs on Node.js/Express with a highly normalized PostgreSQL database.",
-        tech: ["Next.js", "PostgreSQL", "Express", "Zustand"]
+    "LocAI Trade Risk Monitor": {
+        problem: "Smugglers evade detection by spreading illicit cargo across multiple 'Low Risk' shipments utilizing dummy 'Shell Companies'. The objective was to build a system that automatically links disparate entities based on shared attributes to reveal hidden syndicates.",
+        architecture: "<ul><li>Engineered a high-performance ETL pipeline using <strong>Python and Polars</strong> to ingest raw customs declarations into a <strong>Neo4j Knowledge Graph</strong>.</li><li>Built a real-time, dark-themed command center using <strong>Streamlit</strong>.</li><li>Integrated physics-based graph visualizations via <strong>Streamlit-Agraph</strong> to track criminal connections.</li></ul>",
+        tech: ["Python", "Neo4j", "Polars", "Streamlit", "NetworkX"]
+    },
+    "RMDB Syndicate Hunter": {
+        problem: "Developed to modernize data extraction and risk profiling for the Risk Management Unit. Replaced manual reporting with an automated, near real-time intelligence platform capable of identifying anomalies and global risk concentrations.",
+        architecture: "<ul><li>Engineered a highly scalable multi-threaded <strong>Java ETL pipeline</strong> syncing live ASYCUDA data from legacy Oracle/SQL servers to MySQL.</li><li>Developed a visual dashboard using <strong>Python & Streamlit</strong>.</li><li>Integrated <strong>Scikit-Learn (Isolation Forest)</strong> for AI anomaly detection and <strong>NetworkX</strong> for Entity Link Analysis.</li></ul>",
+        tech: ["Java ETL", "Python", "Streamlit", "Scikit-Learn", "MySQL"]
+    },
+    "CusDec Document Creator": {
+        problem: "Built to solve the manual, error-prone process of categorizing imported electronics and determining their correct Harmonized System (HS) Codes for Sri Lanka Customs clearance operations.",
+        architecture: "<ul><li>Architected a Data Normalization Pipeline in <strong>Python/Pandas</strong> to clean raw CSV exports using complex RegEx.</li><li>Developed a dynamic <strong>React/Vite</strong> frontend to map user inputs to HS Codes automatically.</li><li>Engineered a purely client-side JavaScript XML Assembler that instantly generates valid Customs Declaration XML files.</li></ul>",
+        tech: ["Python", "Pandas", "React", "Google Sheets API", "Regex"]
+    },
+    "RMS Simulator": {
+        problem: "Provided the Risk Management Directorate with a powerful engine to simulate the statistical impact of new or modified selectivity rules before deploying them into the live ASYCUDA World production environment.",
+        architecture: "<ul><li>Architected a high-throughput Java simulation engine using <strong>JDBC batch operations</strong> processing 10,000+ records per transaction.</li><li>Engineered a custom <strong>Regex-driven pseudocode parser</strong> to read textual Customs selectivity rules and evaluate complex logical constraints on the fly.</li></ul>",
+        tech: ["Java", "Custom Parser", "JDBC", "MySQL", "Maven"]
+    },
+    "Ammehula Restaurant ERP": {
+        problem: "A massive group project where I took full ownership of architecture to replace traditional, manual management workflows of a real-world client with a highly scalable, digitized, and cloud-ready software ecosystem.",
+        architecture: "<ul><li>Architected an enterprise ERP featuring 6 specialized subsystems (POS, Smart Inventory, KDS, Logistics).</li><li>Frontend built with <strong>Next.js 16</strong> and React Query. Backend runs on <strong>Node.js/Express</strong> with a <strong>PostgreSQL</strong> database managed via Prisma ORM (40 models).</li><li>Implemented real-time synchronization via <strong>Socket.io</strong> and GIS routing with Leaflet/Turf.js.</li></ul>",
+        tech: ["Next.js", "PostgreSQL", "Express", "Socket.io", "Prisma", "Cypress"]
+    },
+    "Sri Lanka Customs AEO": {
+        problem: "Developed to replace the older Authorized Economic Operator (AEO) website with a faster, more interactive, content-managed, and visually polished digital platform for international businesses.",
+        architecture: "<ul><li>Developed the frontend using <strong>Next.js, Tailwind CSS, and Shadcn UI</strong>.</li><li>Engineered a 3D Global Reach visualization utilizing <strong>Three.js</strong> and React Three Fiber.</li><li>Integrated <strong>Payload CMS</strong> backed by SQLite to allow authorized officers to manage content dynamically without code deployments.</li></ul>",
+        tech: ["Next.js", "Payload CMS", "Three.js", "Tailwind CSS", "SQLite"]
+    },
+    "Clothes Manager": {
+        problem: "Developed to solve a personal logistics challenge: managing a distributed wardrobe across two distinct locations. The goal was a mobile-first web app tracking clothing without relying on backend infrastructure.",
+        architecture: "<ul><li>Architected a responsive SPA using <strong>React 19 and Vite</strong>.</li><li>Built a 'Travel Wizard' utilizing <strong>Zustand</strong> for lightweight, global state management.</li><li>Persisted complex inventory data directly to the browser's <strong>LocalStorage</strong> to completely eliminate database latency.</li></ul>",
+        tech: ["React 19", "TypeScript", "Vite", "Zustand", "Tailwind CSS"]
+    },
+    "FilmFolio App": {
+        problem: "Built to solve fragmented movie discovery by providing users with a single, unified mobile platform to browse trending films, watch official trailers, and curate a personal watchlist.",
+        architecture: "<ul><li>Developed a fully native Android application using <strong>Java</strong>.</li><li>Engineered a dual-API integration consuming the <strong>TMDb API</strong> and <strong>YouTube Data API v3</strong> via Retrofit.</li><li>Developed a real-time cloud-synced watchlist leveraging <strong>Firebase Cloud Firestore</strong>.</li></ul>",
+        tech: ["Android Java", "Firebase", "Retrofit", "TMDb API", "Glide"]
+    },
+    "Readify App": {
+        problem: "Conceptualized to provide book enthusiasts with a seamless, mobile-first platform to discover new books, read daily motivational quotes, and manage their personal reading lists via cloud-sync.",
+        architecture: "<ul><li>Native Android App built with <strong>Java</strong> and Material Design UI.</li><li>Integrated the <strong>Google Books API</strong> and ZenQuotes API via a custom Volley HTTP Singleton.</li><li>Architected a real-time cloud database using <strong>Firebase Firestore</strong> with SnapshotListeners for instant UI updates.</li></ul>",
+        tech: ["Android Java", "Firebase", "Google Books API", "Volley", "Material Design"]
+    },
+    "Valentine Surprise": {
+        problem: "The objective was to transform a traditional Valentine's Day proposal into a modern, gamified web application featuring interactive questions, physics animations, and a dynamic photo gallery.",
+        architecture: "<ul><li>Engineered a single-page React 19 application built on a finite state machine.</li><li>Utilized <strong>Framer Motion</strong> for an evasive 'No' button algorithm calculating randomized X/Y escapes.</li><li>Integrated Canvas Confetti and persistent background audio with auto-play browser policy workarounds.</li></ul>",
+        tech: ["React", "Framer Motion", "Tailwind CSS", "Canvas Confetti"]
     },
     "Ceylon Taste Cuisine Web": {
         problem: "A high-end restaurant chain required a dynamic, visually stunning e-commerce platform with real-time order tracking and secure payment gateways.",
-        architecture: "Developed using React for a fast SPA experience. Integrated Stripe for payments and Firebase Realtime Database for live kitchen ticket tracking.",
+        architecture: "<ul><li>Developed using React for a fast SPA experience.</li><li>Integrated Stripe for seamless online payments.</li><li>Utilized Firebase Realtime Database for live kitchen ticket tracking and order fulfillment.</li></ul>",
         tech: ["React", "Firebase", "Stripe API"]
-    },
-    "FilmFolio App": {
-        problem: "Movie enthusiasts needed a way to track, rate, and discover films with instant trailers and cloud sync across devices.",
-        architecture: "Built a native Android application in Java. Utilized Retrofit to consume TMDb and YouTube APIs, storing user preferences seamlessly in Firebase Firestore.",
-        tech: ["Android Java", "Firebase", "Retrofit", "TMDb API"]
-    },
-    "Readify App": {
-        problem: "Readers lacked a unified platform to discover books, scan ISBNs, and maintain a personal digital library.",
-        architecture: "Native Android App (Java). Integrated Google Books API for rich metadata and a local SQLite database (Room) for offline access.",
-        tech: ["Android Java", "SQLite", "Google Books API"]
-    },
-    "Valentine Surprise": {
-        problem: "Required a highly interactive, animated, and physics-driven frontend UI to create a memorable web experience.",
-        architecture: "Leveraged React with Framer Motion for complex micro-animations and fluid physics. Styled with Tailwind CSS for pixel-perfect responsiveness.",
-        tech: ["React", "Framer Motion", "Tailwind CSS"]
     }
 };
 
 const modal = document.getElementById('project-modal');
 const modalClose = document.getElementById('modal-close-btn');
 const projectCards = document.querySelectorAll('.project-card');
+const timelineTriggers = document.querySelectorAll('.project-trigger');
 
-if (modal && projectCards.length > 0) {
+if (modal) {
     const modalTitle = document.getElementById('modal-title');
     const modalProblem = document.getElementById('modal-problem');
     const modalArch = document.getElementById('modal-architecture');
     const modalTech = document.getElementById('modal-tech');
 
-    projectCards.forEach(card => {
-        card.addEventListener('click', () => {
-            const titleEl = card.querySelector('.project-title');
-            if (titleEl) {
-                const title = titleEl.innerText;
-                const data = projectData[title];
-                
-                if (data) {
-                    modalTitle.innerText = title;
-                    modalProblem.innerText = data.problem;
-                    modalArch.innerText = data.architecture;
-                    
-                    // Render tags
-                    modalTech.innerHTML = '';
-                    data.tech.forEach(t => {
-                        modalTech.innerHTML += `<span>${t}</span>`;
-                    });
-                    
-                    modal.classList.add('active');
-                    document.body.style.overflow = 'hidden'; // Prevent background scrolling
-                }
-            }
-        });
-    });
+    const openModal = (title) => {
+        const data = projectData[title];
+        if (data) {
+            modalTitle.innerHTML = title;
+            modalProblem.innerHTML = data.problem;
+            modalArch.innerHTML = data.architecture;
+            
+            // Render tags
+            modalTech.innerHTML = '';
+            data.tech.forEach(t => {
+                modalTech.innerHTML += `<span>${t}</span>`;
+            });
+            
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden'; // Prevent background scrolling
+        }
+    };
 
-    modalClose.addEventListener('click', () => {
-        modal.classList.remove('active');
-        document.body.style.overflow = 'auto';
-    });
+    if (projectCards.length > 0) {
+        projectCards.forEach(card => {
+            card.addEventListener('click', () => {
+                const titleEl = card.querySelector('.project-title');
+                if (titleEl) {
+                    openModal(titleEl.innerText);
+                }
+            });
+        });
+    }
+
+    if (timelineTriggers.length > 0) {
+        timelineTriggers.forEach(trigger => {
+            trigger.addEventListener('click', (e) => {
+                const title = e.target.getAttribute('data-project');
+                if (title) {
+                    openModal(title);
+                }
+            });
+        });
+    }
+
+    if (modalClose) {
+        modalClose.addEventListener('click', () => {
+            modal.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        });
+    }
 
     // Close on outside click
     modal.addEventListener('click', (e) => {

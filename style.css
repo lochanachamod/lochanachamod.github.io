@@ -1417,6 +1417,22 @@ body {
     font-size: 1.1rem;
 }
 
+.modal-body ul {
+    color: var(--text-muted);
+    font-size: 1.1rem;
+    line-height: 1.7;
+    margin-left: 20px;
+    list-style-type: disc;
+}
+
+.modal-body li {
+    margin-bottom: 8px;
+}
+
+.modal-body strong {
+    color: var(--accent);
+}
+
 /* Make Project Cards Clickable */
 .project-card {
     cursor: pointer;
