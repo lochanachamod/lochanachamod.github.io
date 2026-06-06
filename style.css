@@ -102,11 +102,10 @@ body {
 
 /* --- 3. HERO SECTION (THE FIX IS HERE) --- */
 .hero {
-    min-height: 100vh; /* changed from height to min-height */
+    min-height: 100vh;
     display: flex;
-    align-items: center; /* Vertically center content */
     justify-content: space-between;
-    padding: 130px 100px 0 100px; /* Added 130px Top Padding to clear Navbar */
+    padding: 150px 100px 50px 100px; /* Added padding to clear Navbar and spacing */
     max-width: 1400px;
     margin: 0 auto;
     position: relative;
@@ -115,9 +114,14 @@ body {
 .hero-content {
     display: flex;
     flex-direction: column;
-    align-items: flex-start; /* Forces absolute left alignment */
+    align-items: flex-start;
     max-width: 650px;
+    margin: auto 0; /* Centers vertically but prevents top overflow */
     z-index: 2;
+}
+
+.hero-img {
+    margin: auto 0; /* Centers vertically */
 }
 
 .hi-text {
