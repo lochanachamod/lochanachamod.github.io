@@ -63,6 +63,41 @@
         </div>
     </section>
 
+    <!-- 1. TERMINAL SECTION -->
+    <section id="terminal-section" class="terminal-section">
+        <div class="terminal-window" data-aos="fade-up">
+            <div class="terminal-header">
+                <div class="terminal-buttons">
+                    <span class="close-btn"></span>
+                    <span class="min-btn"></span>
+                    <span class="max-btn"></span>
+                </div>
+                <div class="terminal-title">lochana_chamod — bash — 80x24</div>
+            </div>
+            <div class="terminal-body" id="terminal-body">
+                <!-- JS will type here -->
+            </div>
+        </div>
+    </section>
+
+    <!-- 2. COUNTERS SECTION -->
+    <section id="impact" class="impact-section">
+        <div class="impact-container">
+            <div class="impact-card" data-aos="fade-up" data-aos-delay="100">
+                <h3 class="counter" data-target="11">0</h3>
+                <p>Enterprise Projects</p>
+            </div>
+            <div class="impact-card" data-aos="fade-up" data-aos-delay="200">
+                <h3 class="counter" data-target="15">+0</h3>
+                <p>Core Technologies</p>
+            </div>
+            <div class="impact-card" data-aos="fade-up" data-aos-delay="300">
+                <h3 class="counter" data-target="2">+0</h3>
+                <p>Years Experience</p>
+            </div>
+        </div>
+    </section>
+
     <section id="about" class="about-section">
         <h2 class="section-title" data-aos="fade-up">About <span class="highlight">Me</span></h2>
         
@@ -180,6 +215,31 @@
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
+        <!-- 3. TECH STACK MARQUEE -->
+        <div class="marquee-container" data-aos="fade-up">
+            <div class="marquee-track">
+                <span class="marquee-item"><i class="fab fa-react"></i> React</span>
+                <span class="marquee-item"><i class="fab fa-js"></i> Next.js</span>
+                <span class="marquee-item"><i class="fas fa-project-diagram"></i> Neo4j</span>
+                <span class="marquee-item"><i class="fab fa-java"></i> Java</span>
+                <span class="marquee-item"><i class="fab fa-python"></i> Python</span>
+                <span class="marquee-item"><i class="fab fa-docker"></i> Docker</span>
+                <span class="marquee-item"><i class="fas fa-database"></i> PostgreSQL</span>
+                <span class="marquee-item"><i class="fas fa-leaf"></i> MongoDB</span>
+                <span class="marquee-item"><i class="fab fa-android"></i> Android</span>
+                
+                <!-- Duplicate for seamless loop -->
+                <span class="marquee-item"><i class="fab fa-react"></i> React</span>
+                <span class="marquee-item"><i class="fab fa-js"></i> Next.js</span>
+                <span class="marquee-item"><i class="fas fa-project-diagram"></i> Neo4j</span>
+                <span class="marquee-item"><i class="fab fa-java"></i> Java</span>
+                <span class="marquee-item"><i class="fab fa-python"></i> Python</span>
+                <span class="marquee-item"><i class="fab fa-docker"></i> Docker</span>
+                <span class="marquee-item"><i class="fas fa-database"></i> PostgreSQL</span>
+                <span class="marquee-item"><i class="fas fa-leaf"></i> MongoDB</span>
+                <span class="marquee-item"><i class="fab fa-android"></i> Android</span>
             </div>
         </div>
     </section>
@@ -585,6 +645,29 @@
             </p>
         </div>
     </footer>
+
+    <!-- 4. PROJECT MODAL OVERLAY -->
+    <div id="project-modal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close" id="modal-close-btn"><i class="fas fa-times"></i></button>
+            <div class="modal-header">
+                <i class="fas fa-project-diagram modal-icon"></i>
+                <h3 id="modal-title">Project Title</h3>
+            </div>
+            <div class="modal-body">
+                <h4>The Problem Statement</h4>
+                <p id="modal-problem">Problem description goes here.</p>
+                
+                <h4>System Architecture & Impact</h4>
+                <p id="modal-architecture">Architecture description goes here.</p>
+                
+                <h4>Key Technologies</h4>
+                <div id="modal-tech" class="tags">
+                    <!-- JS will inject tags here -->
+                </div>
+            </div>
+        </div>
+    </div>
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script src="script.js"></script>
