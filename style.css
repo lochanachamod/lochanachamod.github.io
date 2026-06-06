@@ -515,6 +515,16 @@ html {
 
 .section-title {
     margin-bottom: 50px;
+    text-align: center;
+}
+
+.section-subtitle {
+    text-align: center;
+    color: var(--text-muted);
+    font-size: 1rem;
+    font-family: var(--font-code);
+    max-width: 600px;
+    margin: -30px auto 50px auto; /* Pulls it closer to the title and centers it */
 }
 
 /* The Scrolling Container */
