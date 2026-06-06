@@ -171,6 +171,7 @@ body {
 .hero-buttons {
     display: flex;
     gap: 20px;
+    flex-wrap: wrap;
 }
 
 .btn-primary {
@@ -182,6 +183,12 @@ body {
     border-radius: 4px;
     transition: all 0.3s ease;
     background: transparent;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    gap: 10px;
+    line-height: 1.4;
 }
 
 .btn-primary:hover {
@@ -196,9 +203,12 @@ body {
     text-decoration: none;
     font-size: 1.2rem;
     transition: 0.3s;
-    display: flex;
+    display: inline-flex;
     align-items: center;
+    justify-content: center;
+    text-align: center;
     gap: 8px;
+    line-height: 1.4;
 }
 
 .btn-secondary:hover {
