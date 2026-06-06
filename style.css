@@ -24,6 +24,31 @@ body {
     position: relative;
 }
 
+html {
+    scroll-behavior: smooth;
+}
+
+/* Custom Webkit Scrollbar */
+::-webkit-scrollbar {
+    width: 10px;
+}
+::-webkit-scrollbar-track {
+    background: var(--bg-dark);
+}
+::-webkit-scrollbar-thumb {
+    background: var(--bg-light);
+    border-radius: 5px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: var(--accent);
+}
+
+/* Premium Text Selection highlight */
+::selection {
+    background-color: var(--accent-glow);
+    color: var(--accent);
+}
+
 /* --- Premium Interactive Elements --- */
 #scroll-progress {
     position: fixed;
