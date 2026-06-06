@@ -761,7 +761,7 @@ body {
 .slide-track {
     animation: scroll 20s linear infinite; /* Speed of scrolling */
     display: flex;
-    width: calc(250px * 12); /* Width = Card width x Number of Total Slides (including duplicates) */
+    width: calc(250px * 18); /* Width = Card width x Number of Total Slides (including duplicates) */
 }
 
 .slide {
@@ -811,7 +811,7 @@ body {
 /* The Animation Keyframes */
 @keyframes scroll {
     0% { transform: translateX(0); }
-    100% { transform: translateX(-1000px); } /* Moves left by width of original 4 cards */
+    100% { transform: translateX(-1500px); } /* Moves left by width of original 6 cards */
 }
 
 /* =========================================
