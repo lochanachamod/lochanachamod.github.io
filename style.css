@@ -451,46 +451,35 @@ body {
     margin-bottom: 50px;
 }
 
-/* The Scrolling Container */
+/* The Grid Container */
 .projects-wrapper {
-    display: flex;
-    overflow-x: auto; /* Enables horizontal scrolling */
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
     gap: 30px;
-    padding: 20px 50px 50px 50px; /* Padding allows hover effects */
-    scroll-behavior: auto; /* MUST be auto for infinite loop to work seamlessly */
-    
-    /* HIDE SCROLLBARS (For Cleaner Look) */
-    scrollbar-width: none; /* Firefox */
-    -ms-overflow-style: none; /* IE/Edge */
-    
-    /* Smooth touch scrolling for iOS */
-    -webkit-overflow-scrolling: touch; 
+    padding: 20px 50px 50px 50px;
+    max-width: 1300px;
+    margin: 0 auto;
 }
 
-/* Hide scrollbar for Chrome, Safari and Opera */
-.projects-wrapper::-webkit-scrollbar {
-    display: none;
-}
-
-/* Fixed Card Size for Slider */
+/* Grid Card Size */
 .project-card {
-    min-width: 350px; /* Forces cards to stay wide */
-    max-width: 350px;
     background-color: var(--bg-light);
     padding: 30px 25px;
-    border-radius: 6px;
-    transition: all 0.3s ease;
+    border-radius: 8px;
+    transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
     box-shadow: 0 10px 30px -15px rgba(2, 12, 27, 0.7);
     display: flex;
     flex-direction: column;
-    /* Important: prevent shrinking */
-    flex-shrink: 0;
+    position: relative;
+    z-index: 1;
 }
 
 .project-card:hover {
     transform: translateY(-10px);
-    box-shadow: 0 20px 30px -15px rgba(2, 12, 27, 0.7);
+    box-shadow: 0 20px 30px -15px rgba(100, 255, 218, 0.2);
     border-top: 2px solid var(--accent);
+    background-color: rgba(17, 34, 64, 0.8);
+    backdrop-filter: blur(10px);
 }
 
 /* Card Header & Content */
@@ -547,10 +536,7 @@ body {
     .projects-wrapper {
         padding: 20px 20px 40px 20px;
         gap: 20px;
-    }
-    .project-card {
-        min-width: 300px;
-        max-width: 300px;
+        grid-template-columns: 1fr; /* Single column on mobile */
     }
 }
 /* --- 7. CONTACT SECTION --- */
