@@ -4,6 +4,27 @@ AOS.init({
     once: true,
 });
 
+/* --- PREMIUM INTERACTIVE ANIMATIONS --- */
+// 1. Mouse Follow Glow Effect
+const cursorGlow = document.getElementById('cursor-glow');
+if (cursorGlow) {
+    window.addEventListener('mousemove', (e) => {
+        cursorGlow.style.left = `${e.clientX}px`;
+        cursorGlow.style.top = `${e.clientY}px`;
+    });
+}
+
+// 2. Scroll Progress Bar
+const scrollProgress = document.getElementById('scroll-progress');
+window.addEventListener('scroll', () => {
+    if (scrollProgress) {
+        const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+        const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        const scrolled = (scrollTop / scrollHeight) * 100;
+        scrollProgress.style.width = scrolled + '%';
+    }
+});
+
 // NEW: Mobile Menu Logic
 const hamburger = document.querySelector('.hamburger');
 const navLinks = document.querySelector('.nav-links');
