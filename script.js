@@ -172,12 +172,10 @@ if (counters.length > 0) {
                 const updateCounter = () => {
                     current += increment;
                     if (current < target) {
-                        const plus = counter.innerText.includes('+') || counter.getAttribute('data-target') === '15' || counter.getAttribute('data-target') === '2' ? '+' : '';
-                        counter.innerText = Math.ceil(current) + plus;
+                        counter.innerText = Math.ceil(current) + '+';
                         requestAnimationFrame(updateCounter);
                     } else {
-                        const plus = counter.getAttribute('data-target') === '15' || counter.getAttribute('data-target') === '2' ? '+' : '';
-                        counter.innerText = target + plus;
+                        counter.innerText = target + '+';
                     }
                 };
                 updateCounter();
