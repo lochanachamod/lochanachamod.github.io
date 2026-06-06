@@ -451,18 +451,31 @@ body {
     margin-bottom: 50px;
 }
 
-/* The Grid Container */
+/* The Scrolling Container */
 .projects-wrapper {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    display: flex;
+    overflow-x: auto; /* Enables horizontal scrolling */
     gap: 30px;
-    padding: 20px 50px 50px 50px;
-    max-width: 1300px;
-    margin: 0 auto;
+    padding: 20px 50px 50px 50px; /* Padding allows hover effects */
+    scroll-behavior: auto; /* MUST be auto for infinite loop to work seamlessly */
+    
+    /* HIDE SCROLLBARS (For Cleaner Look) */
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE/Edge */
+    
+    /* Smooth touch scrolling for iOS */
+    -webkit-overflow-scrolling: touch; 
 }
 
-/* Grid Card Size */
+/* Hide scrollbar for Chrome, Safari and Opera */
+.projects-wrapper::-webkit-scrollbar {
+    display: none;
+}
+
+/* Fixed Card Size for Slider */
 .project-card {
+    min-width: 350px; /* Forces cards to stay wide */
+    max-width: 350px;
     background-color: var(--bg-light);
     padding: 30px 25px;
     border-radius: 8px;
@@ -472,6 +485,8 @@ body {
     flex-direction: column;
     position: relative;
     z-index: 1;
+    /* Important: prevent shrinking */
+    flex-shrink: 0;
 }
 
 .project-card:hover {
@@ -536,7 +551,10 @@ body {
     .projects-wrapper {
         padding: 20px 20px 40px 20px;
         gap: 20px;
-        grid-template-columns: 1fr; /* Single column on mobile */
+    }
+    .project-card {
+        min-width: 300px;
+        max-width: 300px;
     }
 }
 /* --- 7. CONTACT SECTION --- */
