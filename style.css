@@ -1497,8 +1497,8 @@ html {
 .project-card::after {
     content: "Deep Dive →";
     position: absolute;
-    bottom: 25px;
-    right: 30px;
+    top: 40px;
+    right: 25px;
     color: var(--accent);
     font-size: 0.9rem;
     font-weight: bold;
