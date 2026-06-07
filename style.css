@@ -708,18 +708,20 @@ html {
 
     .hero {
         flex-direction: column-reverse; /* Stack image on top of text */
-        justify-content: center;
+        justify-content: flex-start; /* Prevents vertical centering from pushing content under navbar */
         text-align: center;
-        padding-top: 150px;
+        padding-top: 120px; /* Safe distance below navbar */
+        padding-bottom: 50px;
     }
 
     .hero-content {
         align-items: center; /* Center text on mobile */
+        margin: 0; /* Remove auto vertical margin so it stays below image */
     }
 
     .hero-img {
         align-self: center;
-        margin: 0 auto 40px auto;
+        margin: 0 auto 30px auto; /* Image margins */
     }
 
     .img-container {
