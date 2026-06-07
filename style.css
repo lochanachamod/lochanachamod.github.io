@@ -717,10 +717,14 @@ html {
         align-items: center; /* Center text on mobile */
     }
 
+    .hero-img {
+        align-self: center;
+        margin: 0 auto 40px auto;
+    }
+
     .img-container {
         width: 250px;
         height: 250px;
-        margin-bottom: 40px;
     }
 
     .name-text {
