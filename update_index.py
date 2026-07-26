@@ -1,26 +1,30 @@
 import re
 
-with open('e:/My profiles/my-portfolio/index.html', 'r', encoding='utf-8') as f:
-    html = f.read()
+with open('E:/My profiles/my-portfolio/index.html', 'r', encoding='utf-8') as f:
+    text = f.read()
 
-# Remove debug scripts
-html = re.sub(r'<script>\s*window\.onerror.*?<\/script>', '', html, flags=re.DOTALL)
-html = re.sub(r'<script>\s*window\.onload.*?<\/script>', '', html, flags=re.DOTALL)
+# Corestream
+text = text.replace(
+    '<p class="flagship-desc">Distributed event-streaming engine focusing on low-level performance, memory-mapped I/O, zero-copy reads, and fault tolerance across nodes.</p>',
+    '<p class="flagship-desc">Distributed event-streaming engine exploring low-level performance, memory-mapped I/O and fault tolerance across nodes.</p>'
+)
+
+text = text.replace('<span>Zero-Copy</span>\n', '')
+text = text.replace('                        <span>Zero-Copy</span>\n', '')
+text = text.replace('<span>Zero-Copy</span>', '')
+
+# LOC-AI
+text = text.replace(
+    '<p class="flagship-desc">Cross-platform desktop AI coding assistant balancing cloud inference power with private local LLM inference via Ollama, secured through strict IPC sandboxing. Includes OCR and PDF context extraction.</p>',
+    '<p class="flagship-desc">Cross-platform desktop AI coding assistant combining cloud inference with local Ollama inference, document-context extraction and secure IPC.</p>'
+)
 
 # How I work
-html = html.replace('Business goals, user constraints and technical requirements.', 'Goals, users and constraints.')
-html = html.replace('System architecture, data flow and UX patterns.', 'UX, architecture and data.')
-html = html.replace('Scalable backend logic and responsive frontend interfaces.', 'Frontend, backend and integrations.')
-html = html.replace('Testing functionality, performance, accessibility and security.', 'Functionality, performance, accessibility and security.')
-html = html.replace('CI/CD deployment, hand over and continuous iteration.', 'Deploy, hand over and iterate.')
+text = text.replace('<p class="path-desc">Deeply grasp the problem space and business logic.</p>', '<p class="path-desc">Goals, users and constraints.</p>')
+text = text.replace('<p class="path-desc">Architect the data flow, endpoints, and interface.</p>', '<p class="path-desc">UX, architecture and data.</p>')
+text = text.replace('<p class="path-desc">Engineer the core systems with scalable code.</p>', '<p class="path-desc">Frontend, backend and integrations.</p>')
+text = text.replace('<p class="path-desc">Test rigorously for performance and security.</p>', '<p class="path-desc">Functionality, performance, accessibility and security.</p>')
+text = text.replace('<p class="path-desc">Deploy, hand over and iterate on reliable software.</p>', '<p class="path-desc">Deploy, hand over and iterate.</p>')
 
-# Beyond the browser
-html = html.replace('Developing native-feeling desktop applications with deep OS integration, local LLM execution, and cross-platform IPC.', 'Building cross-platform desktop AI applications with secure IPC, document-context extraction, and local/cloud inference.')
-html = html.replace('Building performant mobile applications with robust offline capabilities, cloud synchronization, and responsive material interfaces.', 'Building native Android applications with cloud synchronisation, API integrations and responsive Material interfaces.')
-
-# Tabindex
-html = html.replace('class=\"tab-btn active\" data-target=\"desktop\"', 'class=\"tab-btn active\" data-target=\"desktop\" tabindex=\"0\"')
-html = html.replace('class=\"tab-btn\" data-target=\"mobile\"', 'class=\"tab-btn\" data-target=\"mobile\" tabindex=\"-1\"')
-
-with open('e:/My profiles/my-portfolio/index.html', 'w', encoding='utf-8') as f:
-    f.write(html)
+with open('E:/My profiles/my-portfolio/index.html', 'w', encoding='utf-8') as f:
+    f.write(text)
