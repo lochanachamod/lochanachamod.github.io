@@ -1,318 +1,482 @@
-// Existing AOS code...
-AOS.init({
-    duration: 1200,
-    once: true,
-});
+/**
+ * THE ENGINEERING INDEX - SCRIPT
+ * Refined interactions & accessibility
+ */
 
-/* --- PREMIUM INTERACTIVE ANIMATIONS --- */
-// 1. Mouse Follow Glow Effect
-const cursorGlow = document.getElementById('cursor-glow');
-if (cursorGlow) {
-    window.addEventListener('mousemove', (e) => {
-        cursorGlow.style.left = `${e.clientX}px`;
-        cursorGlow.style.top = `${e.clientY}px`;
-    });
-}
-
-// 2. Scroll Progress Bar
-const scrollProgress = document.getElementById('scroll-progress');
-window.addEventListener('scroll', () => {
-    if (scrollProgress) {
-        const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
-        const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-        const scrolled = (scrollTop / scrollHeight) * 100;
-        scrollProgress.style.width = scrolled + '%';
-    }
-});
-
-// NEW: Mobile Menu Logic
-const hamburger = document.querySelector('.hamburger');
-const navLinks = document.querySelector('.nav-links');
-const links = document.querySelectorAll('.nav-links li');
-
-hamburger.addEventListener('click', () => {
-    // 1. Toggle the menu
-    navLinks.classList.toggle('nav-active');
-
-    // 2. Animate the Links (fade in one by one)
-    links.forEach((link, index) => {
-        if (link.style.animation) {
-            link.style.animation = '';
-        } else {
-            link.style.animation = `navLinkFade 0.5s ease forwards ${index / 7 + 0.3}s`;
-        }
-    });
-
-    // 3. Burger Animation (Optional: Turn lines into X)
-    hamburger.classList.toggle('toggle');
-});
-
-/* --- PROJECTS INFINITE AUTO-SCROLL --- */
-const projectContainer = document.getElementById('projects-container');
-
-if (projectContainer) {
-    // 1. DUPLICATE CONTENT FOR INFINITE LOOP
-    // We clone the projects so the list looks infinite
-    const originalContent = projectContainer.innerHTML;
-    projectContainer.innerHTML += originalContent;
-
-    let scrollSpeed = 0.5; // Adjust speed: higher = faster
-    let isHovered = false;
-
-    // 2. PAUSE LOGIC (Desktop Hover + Mobile Touch)
-    const pauseScroll = () => isHovered = true;
-    const resumeScroll = () => isHovered = false;
-
-    // Desktop
-    projectContainer.addEventListener('mouseenter', pauseScroll);
-    projectContainer.addEventListener('mouseleave', resumeScroll);
-
-    // Mobile (Touch)
-    // We pause immediately on touch, and resume shortly after touch ends
-    projectContainer.addEventListener('touchstart', pauseScroll);
-    projectContainer.addEventListener('touchend', () => {
-        setTimeout(resumeScroll, 2000); // Wait 2 seconds before moving again
-    });
-
-    // 3. THE ANIMATION LOOP
-    function autoScrollProjects() {
-        if (!isHovered) {
-            // Move scrollbar
-            projectContainer.scrollLeft += scrollSpeed;
-
-            // INFINITE LOOP LOGIC:
-            // If we have scrolled past half the width (the original set),
-            // instantly jump back to 0. Because the content is duplicated,
-            // 0 looks exactly the same as the start of the duplicate set.
-            if (projectContainer.scrollLeft >= (projectContainer.scrollWidth / 2)) {
-                projectContainer.scrollLeft = 0;
-            }
-        }
-        requestAnimationFrame(autoScrollProjects);
-    }
-
-    // Start the loop
-    autoScrollProjects();
-}
-
-/* --- ULTIMATE INTERVIEW UPGRADES --- */
-
-/* 1. Terminal Typing Animation */
-const terminalBody = document.getElementById('terminal-body');
-if (terminalBody) {
-    const lines = [
-        "> init lochana_profile.exe",
-        "> Loading enterprise modules... [OK]",
-        "> Booting AI & Data Systems... [OK]",
-        "> Injecting Security Protocols... [OK]",
-        "> Fetching System Architectures...",
-        "> ------------------------------------",
-        "> {",
-        ">   \"status\": \"Engineer Ready\",",
-        ">   \"focus\": [\"Full-Stack\", \"AI/Data\", \"Mobile\"]",
-        "> }",
-        "> ------------------------------------",
-        "> System Online. Awaiting Commands_"
-    ];
+document.addEventListener('DOMContentLoaded', () => {
     
-    let lineIndex = 0;
-    let charIndex = 0;
-    let isTyping = false;
-    let terminalTriggered = false;
-
-    function typeTerminal() {
-        if (lineIndex < lines.length) {
-            if (charIndex === 0) {
-                terminalBody.innerHTML += '<div></div>';
-            }
+    // --- 0. HERO IDENTITY RECONSTRUCTION ---
+    const initHeroIdentity = () => {
+        const stage = document.querySelector('.hero-identity-stage');
+        if (!stage) return;
+        
+        const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        
+        if (!prefersReducedMotion && window.innerWidth > 640) {
+            stage.classList.add('fx-ready');
             
-            const currentLine = lines[lineIndex];
-            const divElements = terminalBody.querySelectorAll('div');
-            const currentDiv = divElements[divElements.length - 1];
+            window.requestAnimationFrame(() => {
+                stage.classList.add('animate-start');
+            });
             
-            currentDiv.innerHTML = currentLine.substring(0, charIndex + 1) + (lineIndex === lines.length -1 && charIndex === currentLine.length -1 ? '<span class="terminal-cursor"></span>' : '');
+            setTimeout(() => {
+                stage.classList.remove('animate-start');
+                stage.classList.add('idle');
+                illuminatePipeline();
+            }, 2200);
             
-            charIndex++;
-            if (charIndex >= currentLine.length) {
-                lineIndex++;
-                charIndex = 0;
-                setTimeout(typeTerminal, 400); // Wait before next line
-            } else {
-                setTimeout(typeTerminal, 30); // Typing speed
-            }
-        }
-    }
-
-    // Trigger terminal when scrolled into view
-    const observer = new IntersectionObserver((entries) => {
-        if (entries[0].isIntersecting && !terminalTriggered) {
-            terminalTriggered = true;
-            terminalBody.innerHTML = '';
-            setTimeout(typeTerminal, 500);
-        }
-    }, { threshold: 0.5 });
-    
-    observer.observe(document.getElementById('terminal-section'));
-}
-
-/* 2. Impact Counters */
-const counters = document.querySelectorAll('.counter');
-let countersTriggered = false;
-
-if (counters.length > 0) {
-    const counterObserver = new IntersectionObserver((entries) => {
-        if (entries[0].isIntersecting && !countersTriggered) {
-            countersTriggered = true;
-            counters.forEach(counter => {
-                const target = +counter.getAttribute('data-target');
-                const duration = 2000; // ms
-                const increment = target / (duration / 16); // 60fps
-                let current = 0;
+            stage.addEventListener('mousemove', (e) => {
+                const rect = stage.getBoundingClientRect();
+                const x = (e.clientX - rect.left) / rect.width - 0.5;
+                const y = (e.clientY - rect.top) / rect.height - 0.5;
                 
-                const updateCounter = () => {
-                    current += increment;
-                    if (current < target) {
-                        counter.innerText = Math.ceil(current) + '+';
-                        requestAnimationFrame(updateCounter);
-                    } else {
-                        counter.innerText = target + '+';
-                    }
-                };
-                updateCounter();
-            });
-        }
-    }, { threshold: 0.5 });
-    
-    counterObserver.observe(document.getElementById('impact'));
-}
-
-/* 4. Deep Dive Project Modals */
-const projectData = {
-    "LOC-AI Assistant": {
-        problem: "LOC-AI was built to solve a critical problem for modern developers: balancing the immense reasoning power of cloud-based AI with the strict privacy requirements of enterprise coding. The objective was to create a tool with a <strong>God Mode</strong> (online API) and a <strong>Bunker Mode</strong> (offline inference) for sensitive code.",
-        architecture: "<ul><li>Built a production-ready, cross-platform desktop application using <strong>Electron and Node.js</strong>.</li><li>Engineered a custom Extraction Engine utilizing native OCR via <strong>Tesseract.js</strong> and PDF parsing via <strong>pdf-parse</strong>.</li><li>Implemented enterprise-grade security via strict IPC bridging and frontend sandboxing.</li></ul>",
-        tech: ["Electron", "Node.js", "React", "Groq API", "Ollama", "Tesseract.js"]
-    },
-    "LocAI Trade Risk Monitor": {
-        problem: "Smugglers evade detection by spreading illicit cargo across multiple 'Low Risk' shipments utilizing dummy 'Shell Companies'. The objective was to build a system that automatically links disparate entities based on shared attributes to reveal hidden syndicates.",
-        architecture: "<ul><li>Engineered a high-performance ETL pipeline using <strong>Python and Polars</strong> to ingest raw customs declarations into a <strong>Neo4j Knowledge Graph</strong>.</li><li>Built a real-time, dark-themed command center using <strong>Streamlit</strong>.</li><li>Integrated physics-based graph visualizations via <strong>Streamlit-Agraph</strong> to track criminal connections.</li></ul>",
-        tech: ["Python", "Neo4j", "Polars", "Streamlit", "NetworkX"]
-    },
-    "RMDB Syndicate Hunter": {
-        problem: "Developed to modernize data extraction and risk profiling for the Risk Management Unit. Replaced manual reporting with an automated, near real-time intelligence platform capable of identifying anomalies and global risk concentrations.",
-        architecture: "<ul><li>Engineered a highly scalable multi-threaded <strong>Java ETL pipeline</strong> syncing live ASYCUDA data from legacy Oracle/SQL servers to MySQL.</li><li>Developed a visual dashboard using <strong>Python & Streamlit</strong>.</li><li>Integrated <strong>Scikit-Learn (Isolation Forest)</strong> for AI anomaly detection and <strong>NetworkX</strong> for Entity Link Analysis.</li></ul>",
-        tech: ["Java ETL", "Python", "Streamlit", "Scikit-Learn", "MySQL"]
-    },
-    "CusDec Document Creator": {
-        problem: "Built to solve the manual, error-prone process of categorizing imported electronics and determining their correct Harmonized System (HS) Codes for Sri Lanka Customs clearance operations.",
-        architecture: "<ul><li>Architected a Data Normalization Pipeline in <strong>Python/Pandas</strong> to clean raw CSV exports using complex RegEx.</li><li>Developed a dynamic <strong>React/Vite</strong> frontend to map user inputs to HS Codes automatically.</li><li>Engineered a purely client-side JavaScript XML Assembler that instantly generates valid Customs Declaration XML files.</li></ul>",
-        tech: ["Python", "Pandas", "React", "Google Sheets API", "Regex"]
-    },
-    "RMS Simulator": {
-        problem: "Provided the Risk Management Directorate with a powerful engine to simulate the statistical impact of new or modified selectivity rules before deploying them into the live ASYCUDA World production environment.",
-        architecture: "<ul><li>Architected a high-throughput Java simulation engine using <strong>JDBC batch operations</strong> processing 10,000+ records per transaction.</li><li>Engineered a custom <strong>Regex-driven pseudocode parser</strong> to read textual Customs selectivity rules and evaluate complex logical constraints on the fly.</li></ul>",
-        tech: ["Java", "Custom Parser", "JDBC", "MySQL", "Maven"]
-    },
-    "Ammehula Restaurant ERP": {
-        problem: "A massive group project where I took full ownership of architecture to replace traditional, manual management workflows of a real-world client with a highly scalable, digitized, and cloud-ready software ecosystem.",
-        architecture: "<ul><li>Architected an enterprise ERP featuring 6 specialized subsystems (POS, Smart Inventory, KDS, Logistics).</li><li>Frontend built with <strong>Next.js 16</strong> and React Query. Backend runs on <strong>Node.js/Express</strong> with a <strong>PostgreSQL</strong> database managed via Prisma ORM (40 models).</li><li>Implemented real-time synchronization via <strong>Socket.io</strong> and GIS routing with Leaflet/Turf.js.</li></ul>",
-        tech: ["Next.js", "PostgreSQL", "Express", "Socket.io", "Prisma", "Cypress"]
-    },
-    "Sri Lanka Customs AEO": {
-        problem: "Developed to replace the older Authorized Economic Operator (AEO) website with a faster, more interactive, content-managed, and visually polished digital platform for international businesses.",
-        architecture: "<ul><li>Developed the frontend using <strong>Next.js, Tailwind CSS, and Shadcn UI</strong>.</li><li>Engineered a 3D Global Reach visualization utilizing <strong>Three.js</strong> and React Three Fiber.</li><li>Integrated <strong>Payload CMS</strong> backed by SQLite to allow authorized officers to manage content dynamically without code deployments.</li></ul>",
-        tech: ["Next.js", "Payload CMS", "Three.js", "Tailwind CSS", "SQLite"]
-    },
-    "Clothes Manager": {
-        problem: "Developed to solve a personal logistics challenge: managing a distributed wardrobe across two distinct locations. The goal was a mobile-first web app tracking clothing without relying on backend infrastructure.",
-        architecture: "<ul><li>Architected a responsive SPA using <strong>React 19 and Vite</strong>.</li><li>Built a 'Travel Wizard' utilizing <strong>Zustand</strong> for lightweight, global state management.</li><li>Persisted complex inventory data directly to the browser's <strong>LocalStorage</strong> to completely eliminate database latency.</li></ul>",
-        tech: ["React 19", "TypeScript", "Vite", "Zustand", "Tailwind CSS"]
-    },
-    "FilmFolio App": {
-        problem: "Built to solve fragmented movie discovery by providing users with a single, unified mobile platform to browse trending films, watch official trailers, and curate a personal watchlist.",
-        architecture: "<ul><li>Developed a fully native Android application using <strong>Java</strong>.</li><li>Engineered a dual-API integration consuming the <strong>TMDb API</strong> and <strong>YouTube Data API v3</strong> via Retrofit.</li><li>Developed a real-time cloud-synced watchlist leveraging <strong>Firebase Cloud Firestore</strong>.</li></ul>",
-        tech: ["Android Java", "Firebase", "Retrofit", "TMDb API", "Glide"]
-    },
-    "Readify App": {
-        problem: "Conceptualized to provide book enthusiasts with a seamless, mobile-first platform to discover new books, read daily motivational quotes, and manage their personal reading lists via cloud-sync.",
-        architecture: "<ul><li>Native Android App built with <strong>Java</strong> and Material Design UI.</li><li>Integrated the <strong>Google Books API</strong> and ZenQuotes API via a custom Volley HTTP Singleton.</li><li>Architected a real-time cloud database using <strong>Firebase Firestore</strong> with SnapshotListeners for instant UI updates.</li></ul>",
-        tech: ["Android Java", "Firebase", "Google Books API", "Volley", "Material Design"]
-    },
-    "Valentine Surprise": {
-        problem: "The objective was to transform a traditional Valentine's Day proposal into a modern, gamified web application featuring interactive questions, physics animations, and a dynamic photo gallery.",
-        architecture: "<ul><li>Engineered a single-page React 19 application built on a finite state machine.</li><li>Utilized <strong>Framer Motion</strong> for an evasive 'No' button algorithm calculating randomized X/Y escapes.</li><li>Integrated Canvas Confetti and persistent background audio with auto-play browser policy workarounds.</li></ul>",
-        tech: ["React", "Framer Motion", "Tailwind CSS", "Canvas Confetti"]
-    },
-    "Ceylon Taste Cuisine Web": {
-        problem: "A high-end restaurant chain required a dynamic, visually stunning e-commerce platform with real-time order tracking and secure payment gateways.",
-        architecture: "<ul><li>Developed using React for a fast SPA experience.</li><li>Integrated Stripe for seamless online payments.</li><li>Utilized Firebase Realtime Database for live kitchen ticket tracking and order fulfillment.</li></ul>",
-        tech: ["React", "Firebase", "Stripe API"]
-    }
-};
-
-const modal = document.getElementById('project-modal');
-const modalClose = document.getElementById('modal-close-btn');
-const projectCards = document.querySelectorAll('.project-card');
-const timelineTriggers = document.querySelectorAll('.project-trigger');
-
-if (modal) {
-    const modalTitle = document.getElementById('modal-title');
-    const modalProblem = document.getElementById('modal-problem');
-    const modalArch = document.getElementById('modal-architecture');
-    const modalTech = document.getElementById('modal-tech');
-
-    const openModal = (title) => {
-        const data = projectData[title];
-        if (data) {
-            modalTitle.innerHTML = title;
-            modalProblem.innerHTML = data.problem;
-            modalArch.innerHTML = data.architecture;
-            
-            // Render tags
-            modalTech.innerHTML = '';
-            data.tech.forEach(t => {
-                modalTech.innerHTML += `<span>${t}</span>`;
+                window.requestAnimationFrame(() => {
+                    stage.style.setProperty('--px', x);
+                    stage.style.setProperty('--py', y);
+                });
             });
             
-            modal.classList.add('active');
-            document.body.style.overflow = 'hidden'; // Prevent background scrolling
+            stage.addEventListener('mouseleave', () => {
+                window.requestAnimationFrame(() => {
+                    stage.style.setProperty('--px', 0);
+                    stage.style.setProperty('--py', 0);
+                });
+            });
+        } else {
+            stage.classList.add('idle');
+            illuminatePipeline();
         }
     };
 
-    if (projectCards.length > 0) {
-        projectCards.forEach(card => {
-            card.addEventListener('click', () => {
-                const titleEl = card.querySelector('.project-title');
-                if (titleEl) {
-                    openModal(titleEl.innerText);
+    const illuminatePipeline = () => {
+        const nodes = document.querySelectorAll('.hero-pipeline .pipe-node, .hero-pipeline .pipe-line');
+        nodes.forEach((node, index) => {
+            setTimeout(() => {
+                node.classList.add('active');
+            }, index * 250); // 250ms stagger per node/line
+            
+            setTimeout(() => {
+                node.classList.add('settled');
+            }, (index * 250) + 1500); // 1.5s after lighting up, settle down
+        });
+    };
+
+    initHeroIdentity();
+
+    // --- 1. SCROLL REVEALS (INTERSECTION OBSERVER) ---
+    const revealOptions = {
+        root: null,
+        rootMargin: '0px',
+        threshold: 0.1
+    };
+    
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    if (!prefersReducedMotion) {
+        const revealObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                    observer.unobserve(entry.target);
                 }
             });
+        }, revealOptions);
+
+        document.querySelectorAll('.reveal, .career-rail, .process-path').forEach(el => revealObserver.observe(el));
+    } else {
+        document.querySelectorAll('.reveal, .career-rail, .process-path').forEach(el => el.classList.add('active'));
+    }
+
+    // --- 2. ACTIVE NAVIGATION STATE & SMOOTH SCROLL ---
+    const navItems = document.querySelectorAll('.nav-item');
+    const navMapping = [
+        { id: 'work', href: '#work' },
+        { id: 'experience', href: '#experience' },
+        { id: 'services', href: '#services' },
+        { id: 'workflow', href: '#services' },
+        { id: 'beyond', href: '#beyond' },
+        { id: 'additional-work', href: '#beyond' },
+        { id: 'capabilities', href: '#beyond' },
+        { id: 'about', href: '#about' },
+        { id: 'contact', href: '#contact' }
+    ];
+
+    let isScrolling = false;
+    function updateNav() {
+        const scrollPos = window.scrollY;
+        // Activation line roughly nav height (80px) + 30% of viewport
+        const activationLine = window.innerHeight * 0.3 + 80; 
+        const pageBottom = (window.innerHeight + scrollPos) >= document.body.offsetHeight - 50;
+
+        let activeHref = null;
+
+        if (pageBottom) {
+            activeHref = '#contact';
+        } else {
+            // Find the last section whose top is above the activation line
+            for (let i = navMapping.length - 1; i >= 0; i--) {
+                const sec = document.getElementById(navMapping[i].id);
+                if (sec) {
+                    const rect = sec.getBoundingClientRect();
+                    const top = rect.top + window.scrollY;
+                    if (top <= scrollPos + activationLine) {
+                        activeHref = navMapping[i].href;
+                        break;
+                    }
+                }
+            }
+        }
+        
+        if (!activeHref) activeHref = '#work';
+
+        navItems.forEach(nav => {
+            nav.classList.remove('active');
+            if (nav.getAttribute('href') === activeHref) {
+                nav.classList.add('active');
+            }
+        });
+        isScrolling = false;
+    }
+
+    window.addEventListener('scroll', () => {
+        if (!isScrolling) {
+            window.requestAnimationFrame(updateNav);
+            isScrolling = true;
+        }
+    }, { passive: true });
+    
+    // Initial call
+    updateNav();
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            const targetId = this.getAttribute('href');
+            if (targetId && targetId !== '#') {
+                scrollTo(targetId, false, 'start');
+                this.blur();
+            }
+            closeCmdPalette();
+        });
+    });
+
+    // --- 3. AMMEHULA HOVER/CLICK LOGIC ---
+    const ammehulaBlocks = document.querySelectorAll('.vis-ammehula .arch-node');
+    const ammehulaMedia = document.querySelectorAll('.vis-ammehula .flag-img');
+    
+    function setAmmehulaMedia(mediaId) {
+        ammehulaBlocks.forEach(b => {
+            b.classList.remove('active');
+            b.setAttribute('aria-pressed', 'false');
+            if (b.getAttribute('data-media') === mediaId) {
+                b.classList.add('active');
+                b.setAttribute('aria-pressed', 'true');
+            }
+        });
+        
+        ammehulaMedia.forEach(img => {
+            img.classList.remove('visible');
+            img.style.zIndex = '';
+        });
+        
+        const targetImg = document.getElementById(`img-ammehula-${mediaId}`);
+        if(targetImg) {
+            targetImg.classList.add('visible');
+            targetImg.style.zIndex = '10';
+        }
+    }
+
+    ammehulaBlocks.forEach(block => {
+        const mediaId = block.getAttribute('data-media');
+        
+        block.addEventListener('mouseenter', () => setAmmehulaMedia(mediaId));
+        block.addEventListener('focus', () => setAmmehulaMedia(mediaId));
+        block.addEventListener('click', () => setAmmehulaMedia(mediaId));
+    });
+
+    // Reset Ammehula on container leave to prevent getting stuck
+    const ammehulaVisual = document.querySelector('.vis-ammehula');
+    if (ammehulaVisual) {
+        ammehulaVisual.addEventListener('mouseleave', () => setAmmehulaMedia('main'));
+    }
+
+    // --- 3.5 LOC-AI HOVER/CLICK LOGIC ---
+    const locaiPanes = document.querySelectorAll('.vis-locai .split-pane');
+    const locaiContainer = document.querySelector('.vis-locai');
+    function setLocAiPane(paneNode) {
+        locaiPanes.forEach(p => {
+            p.classList.remove('active');
+            p.setAttribute('aria-pressed', 'false');
+        });
+        paneNode.classList.add('active');
+        paneNode.setAttribute('aria-pressed', 'true');
+        
+        if (paneNode.classList.contains('cloud-pane')) {
+            if (locaiContainer) locaiContainer.classList.add('show-context');
+        } else {
+            if (locaiContainer) locaiContainer.classList.remove('show-context');
+        }
+    }
+    
+    locaiPanes.forEach(pane => {
+        pane.addEventListener('mouseenter', () => setLocAiPane(pane));
+        pane.addEventListener('focus', () => setLocAiPane(pane));
+        pane.addEventListener('click', () => setLocAiPane(pane));
+    });
+
+    // --- 3.6 BEYOND THE BROWSER TABS ---
+    const techTabs = document.querySelectorAll('.tech-tab');
+    const techPanels = document.querySelectorAll('.tech-panel');
+
+    function setTechTab(tabId) {
+        techTabs.forEach(tab => {
+            if (tab.id === tabId) {
+                tab.classList.add('active');
+                tab.setAttribute('aria-selected', 'true');
+                tab.setAttribute('tabindex', '0');
+            } else {
+                tab.classList.remove('active');
+                tab.setAttribute('aria-selected', 'false');
+                tab.setAttribute('tabindex', '-1');
+            }
+        });
+
+        techPanels.forEach(panel => {
+            if (panel.getAttribute('aria-labelledby') === tabId) {
+                panel.classList.add('active');
+            } else {
+                panel.classList.remove('active');
+            }
         });
     }
 
-    if (timelineTriggers.length > 0) {
-        timelineTriggers.forEach(trigger => {
-            trigger.addEventListener('click', (e) => {
-                const title = e.target.getAttribute('data-project');
-                if (title) {
-                    openModal(title);
+    techTabs.forEach(tab => {
+        tab.addEventListener('click', () => setTechTab(tab.id));
+        tab.addEventListener('keydown', (e) => {
+            let nextTab = null;
+            if (e.key === 'ArrowDown' || e.key === 'ArrowRight') {
+                e.preventDefault();
+                nextTab = tab.nextElementSibling || techTabs[0];
+            } else if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') {
+                e.preventDefault();
+                nextTab = tab.previousElementSibling || techTabs[techTabs.length - 1];
+            }
+            if (nextTab) {
+                nextTab.focus();
+                setTechTab(nextTab.id);
+            }
+        });
+    });
+
+    // --- 4. COMMAND PALETTE (CTRL+K / CMD+K) ---
+    const cmdPalette = document.getElementById('cmd-palette');
+    const cmdInput = document.getElementById('cmd-input');
+    const cmdResults = document.getElementById('cmd-results');
+    const cmdTrigger = document.getElementById('cmd-trigger');
+    const cmdBackdrop = document.getElementById('cmd-backdrop');
+    let cmdLastFocusedElement = null;
+
+    // Grouped Commands
+    const groupedCommands = {
+        'NAVIGATE': [
+            { title: 'Work', desc: 'Flagship engineering projects', action: () => scrollTo('#work') },
+            { title: 'Experience', desc: 'Professional timeline', action: () => scrollTo('#experience') },
+            { title: 'Services', desc: 'Full-Stack, Backend, Modernisation', action: () => scrollTo('#services') },
+            { title: 'Beyond the Browser', desc: 'Systems, Desktop, Mobile, Data', action: () => scrollTo('#beyond') },
+            { title: 'Additional Work', desc: 'Selected project archive', action: () => scrollTo('#additional-work') },
+            { title: 'About', desc: 'Professional story and education', action: () => scrollTo('#about') },
+            { title: 'Contact', desc: 'Get in touch for opportunities', action: () => scrollTo('#contact') }
+        ],
+        'PROJECTS': [
+            { title: 'Ammehula', desc: 'Full-Stack Product Engineering', action: () => scrollTo('#proj-ammehula', false, 'start') },
+            { title: 'CoreStream Engine', desc: 'Distributed Systems', action: () => scrollTo('#proj-corestream', false, 'start') },
+            { title: 'LOC-AI Assistant', desc: 'Desktop AI', action: () => scrollTo('#proj-locai', false, 'start') },
+            { title: 'Sentinel-eBPF', desc: 'Security / Systems', action: () => scrollTo('#proj-sentinel', false, 'start') },
+            { title: 'Clothes Manager', desc: 'React, TypeScript', action: () => scrollTo('#proj-clothes-manager', true, 'center') },
+            { title: 'Cricket Match Predictor', desc: 'Python, ML', action: () => scrollTo('#proj-cricket-match-predictor', true, 'center') },
+            { title: 'FilmFolio', desc: 'Android Java', action: () => scrollTo('#proj-filmfolio', true, 'center') },
+            { title: 'GameSpotter', desc: 'PHP, MySQL', action: () => scrollTo('#proj-gamespotter', true, 'center') },
+            { title: 'Patient Record System', desc: 'Node.js, MongoDB', action: () => scrollTo('#proj-patient-record-system', true, 'center') },
+            { title: 'Phone Number Analyzer', desc: 'Python, OSINT', action: () => scrollTo('#proj-advanced-phone-number-analyzer', true, 'center') },
+            { title: 'Readify', desc: 'Android Java', action: () => scrollTo('#proj-readify', true, 'center') },
+            { title: 'ShipMate', desc: 'Java Swing', action: () => scrollTo('#proj-shipmate', true, 'center') }
+        ],
+        'ACTIONS': [
+            { title: 'Email', desc: 'lochanachamod3@gmail.com', action: () => window.location.href = 'mailto:lochanachamod3@gmail.com' },
+            { title: 'GitHub', desc: 'lochanachamod', action: () => window.open('https://github.com/lochanachamod', '_blank') },
+            { title: 'LinkedIn', desc: 'lochana-chamod', action: () => window.open('https://linkedin.com/in/lochana-chamod', '_blank') }
+        ]
+    };
+
+    let flatResults = [];
+    let selectedIndex = 0;
+
+    function renderCommands(query = '') {
+        cmdResults.innerHTML = '';
+        flatResults = [];
+        let indexCounter = 0;
+
+        for (const [groupName, groupItems] of Object.entries(groupedCommands)) {
+            const filtered = groupItems.filter(cmd => 
+                cmd.title.toLowerCase().includes(query.toLowerCase()) || 
+                cmd.desc.toLowerCase().includes(query.toLowerCase())
+            );
+
+            if (filtered.length > 0) {
+                const groupTitle = document.createElement('div');
+                groupTitle.className = 'cmd-group-title';
+                groupTitle.textContent = groupName;
+                cmdResults.appendChild(groupTitle);
+
+                filtered.forEach(cmd => {
+                    const currentIndex = indexCounter;
+                    const div = document.createElement('div');
+                    div.id = `cmd-option-${currentIndex}`;
+                    div.className = `cmd-item ${currentIndex === selectedIndex ? 'selected' : ''}`;
+                    div.setAttribute('role', 'option');
+                    div.setAttribute('aria-selected', currentIndex === selectedIndex);
+                    div.setAttribute('data-index', currentIndex);
+                    
+                    div.innerHTML = `
+                        <span>${cmd.title}</span>
+                        <span class="cmd-item-desc">${cmd.desc}</span>
+                    `;
+                    
+                    div.addEventListener('click', () => {
+                        closeCmdPalette();
+                        cmd.action();
+                    });
+                    
+                    div.addEventListener('mousemove', () => {
+                        if (selectedIndex !== currentIndex) {
+                            updateSelectionVisually(currentIndex);
+                        }
+                    });
+                    
+                    cmdResults.appendChild(div);
+                    flatResults.push(cmd);
+                    indexCounter++;
+                });
+            }
+        }
+
+        if (flatResults.length === 0) {
+            cmdResults.innerHTML = '<div class="cmd-item" style="justify-content: center; color: var(--text-dark);" role="option">No results found</div>';
+            cmdInput.removeAttribute('aria-activedescendant');
+        } else {
+            updateSelectionVisually(selectedIndex);
+        }
+    }
+
+    function updateSelectionVisually(newIndex) {
+        if (newIndex >= 0 && newIndex < flatResults.length) {
+            selectedIndex = newIndex;
+            const items = cmdResults.querySelectorAll('.cmd-item');
+            items.forEach(item => {
+                const itemIdx = parseInt(item.getAttribute('data-index'), 10);
+                if (itemIdx === selectedIndex) {
+                    item.classList.add('selected');
+                    item.setAttribute('aria-selected', 'true');
+                    cmdInput.setAttribute('aria-activedescendant', `cmd-option-${selectedIndex}`);
+                    // Ensure it scrolls into view within the listbox
+                    item.scrollIntoView({ block: 'nearest' });
+                } else {
+                    item.classList.remove('selected');
+                    item.setAttribute('aria-selected', 'false');
                 }
             });
-        });
+        }
     }
 
-    if (modalClose) {
-        modalClose.addEventListener('click', () => {
-            modal.classList.remove('active');
-            document.body.style.overflow = 'auto';
-        });
+    function openCmdPalette() {
+        cmdLastFocusedElement = document.activeElement;
+        cmdPalette.setAttribute('aria-hidden', 'false');
+        cmdInput.setAttribute('aria-expanded', 'true');
+        cmdInput.value = '';
+        selectedIndex = 0;
+        renderCommands();
+        cmdPalette.classList.add('active');
+        setTimeout(() => cmdInput.focus(), 50);
+        document.body.style.overflow = 'hidden';
     }
 
-    // Close on outside click
-    modal.addEventListener('click', (e) => {
-        if (e.target === modal) {
-            modal.classList.remove('active');
-            document.body.style.overflow = 'auto';
+    function closeCmdPalette() {
+        cmdPalette.classList.remove('active');
+        cmdPalette.setAttribute('aria-hidden', 'true');
+        cmdInput.setAttribute('aria-expanded', 'false');
+        cmdInput.blur();
+        cmdInput.value = '';
+        document.body.style.overflow = '';
+        if (cmdLastFocusedElement) {
+            cmdLastFocusedElement.focus();
+        }
+    }
+
+    function scrollTo(selector, highlight = false, blockPosition = 'start') {
+        const target = document.querySelector(selector);
+        if (target) {
+            target.scrollIntoView({ behavior: prefersReducedMotion ? 'auto' : 'smooth', block: blockPosition });
+            if (highlight) {
+                target.classList.add('highlight');
+                setTimeout(() => target.classList.remove('highlight'), 2000);
+            }
+        }
+    }
+
+    cmdTrigger.addEventListener('click', openCmdPalette);
+    cmdBackdrop.addEventListener('click', closeCmdPalette);
+
+    // Focus trap for command palette modal
+    cmdPalette.addEventListener('keydown', (e) => {
+        if (e.key === 'Tab') {
+            // Since this is a combobox, we trap Tab to stay on the input or close it.
+            // A more standard approach for a modal dialog is to allow tab if there are other focusables,
+            // but here we just keep focus on input and prevent escaping to the background.
+            e.preventDefault();
         }
     });
-}
+
+    document.addEventListener('keydown', (e) => {
+        if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+            e.preventDefault();
+            if (cmdPalette.getAttribute('aria-hidden') === 'true') {
+                openCmdPalette();
+            } else {
+                closeCmdPalette();
+            }
+        }
+
+        if (e.key === 'Escape' && cmdPalette.getAttribute('aria-hidden') === 'false') {
+            closeCmdPalette();
+        }
+    });
+
+    cmdInput.addEventListener('input', (e) => {
+        selectedIndex = 0;
+        renderCommands(e.target.value);
+    });
+
+    cmdInput.addEventListener('keydown', (e) => {
+        if (flatResults.length === 0) return;
+
+        if (e.key === 'ArrowDown') {
+            e.preventDefault();
+            const newIndex = (selectedIndex + 1) % flatResults.length;
+            updateSelectionVisually(newIndex);
+            const selectedEl = cmdResults.querySelector('.cmd-item.selected');
+            selectedEl?.scrollIntoView({ block: 'nearest', behavior: prefersReducedMotion ? 'auto' : 'smooth' });
+        } else if (e.key === 'ArrowUp') {
+            e.preventDefault();
+            const newIndex = (selectedIndex - 1 + flatResults.length) % flatResults.length;
+            updateSelectionVisually(newIndex);
+            const selectedEl = cmdResults.querySelector('.cmd-item.selected');
+            selectedEl?.scrollIntoView({ block: 'nearest', behavior: prefersReducedMotion ? 'auto' : 'smooth' });
+        } else if (e.key === 'Enter') {
+            e.preventDefault();
+            if (flatResults[selectedIndex]) {
+                closeCmdPalette();
+                flatResults[selectedIndex].action();
+            }
+        }
+    });
+});
