@@ -302,6 +302,12 @@ document.addEventListener('DOMContentLoaded', () => {
             { title: 'ShipMate', desc: 'Java Swing', action: () => scrollTo('#proj-shipmate', true, 'center') }
         ],
         'ACTIONS': [
+            { title: 'Download CV', desc: 'assets/docs/Lochana_Chamod_CV.pdf', action: () => {
+                const a = document.createElement('a');
+                a.href = 'assets/docs/Lochana_Chamod_CV.pdf';
+                a.download = '';
+                a.click();
+            }},
             { title: 'Email', desc: 'lochanachamod3@gmail.com', action: () => window.location.href = 'mailto:lochanachamod3@gmail.com' },
             { title: 'GitHub', desc: 'lochanachamod', action: () => window.open('https://github.com/lochanachamod', '_blank') },
             { title: 'LinkedIn', desc: 'lochana-chamod', action: () => window.open('https://linkedin.com/in/lochana-chamod', '_blank') }

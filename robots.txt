@@ -1,4 +1,5 @@
 User-agent: *
 Allow: /
+Disallow: /assets/docs/Lochana_Chamod_CV.pdf
 
 Sitemap: https://lochanachamod.github.io/sitemap.xml
